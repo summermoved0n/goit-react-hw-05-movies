@@ -10,7 +10,6 @@ const Home = () => {
     TheMovieApi.getFetchPopularMovie().then(data => {
       const { results } = data;
       setMovies([...results]);
-      console.log(movies);
     });
   }, []);
   return (
@@ -19,7 +18,7 @@ const Home = () => {
       <ul>
         {movies.map(({ id, title, name }) => (
           <li key={id}>
-            <Link>{title ?? name}</Link>
+            <Link to={`movies/${id}`}>{title ?? name}</Link>
           </li>
         ))}
       </ul>
