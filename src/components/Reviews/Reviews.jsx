@@ -4,18 +4,18 @@
 
 // const TheMovieApi = new ServiceApi();
 
-// const Reviews = () => {
-//   const [reviews, setReviews] = useState([]);
-//   const { movieId } = useParams();
-//   console.log(movieId);
+const Reviews = () => {
+  // const [reviews, setReviews] = useState([]);
+  // const { movieId } = useParams();
+  // console.log(movieId);
 
-//   useEffect(() => {
+  // useEffect(() => {
 
-//   }, [movieId]);
+  // }, [movieId]);
 
-//   console.log(reviews);
+  // console.log(reviews);
 
-//   return <div>Reviews</div>;
-// };
+  return <div>Reviews</div>;
+};
 
-// export default Reviews;
+export default Reviews;
