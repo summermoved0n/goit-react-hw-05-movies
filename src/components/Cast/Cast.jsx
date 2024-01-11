@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import ServiceApi from '/Program/GitLib/goit-react-hw-05-movies/src/helpers/service-api';
+import ServiceApi from '../../helpers/service-api';
 
 const TheMovieApi = new ServiceApi();
 const defaultImg =
@@ -21,21 +21,25 @@ const Cast = () => {
 
   return (
     <ul>
-      {actors.map(({ character, id, name, profile_path }) => (
-        <li key={id}>
-          <img
-            src={
-              profile_path
-                ? `https://image.tmdb.org/t/p/w500/${profile_path}`
-                : defaultImg
-            }
-            alt="actor"
-            width={200}
-          />
-          <h3>{name}</h3>
-          <p>Character: {character}</p>
-        </li>
-      ))}
+      {actors.length > 0 ? (
+        actors.map(({ character, id, name, profile_path }) => (
+          <li key={id}>
+            <img
+              src={
+                profile_path
+                  ? `https://image.tmdb.org/t/p/w500/${profile_path}`
+                  : defaultImg
+              }
+              alt="actor"
+              width={200}
+            />
+            <h3>{name}</h3>
+            <p>Character: {character}</p>
+          </li>
+        ))
+      ) : (
+        <li>Actors not found</li>
+      )}
     </ul>
   );
 };

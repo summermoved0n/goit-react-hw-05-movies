@@ -1,21 +1,36 @@
-// import { useEffect, useState } from 'react';
-// import ServiceApi from '/Program/GitLib/goit-react-hw-05-movies/src/helpers/service-api';
-// import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import ServiceApi from '../../helpers/service-api';
+import { useParams } from 'react-router-dom';
 
-// const TheMovieApi = new ServiceApi();
+const TheMovieApi = new ServiceApi();
 
 const Reviews = () => {
-  // const [reviews, setReviews] = useState([]);
-  // const { movieId } = useParams();
-  // console.log(movieId);
+  const [reviews, setReviews] = useState([]);
+  const { movieId } = useParams();
 
-  // useEffect(() => {
+  useEffect(() => {
+    TheMovieApi.getReviewById(movieId).then(data => {
+      const { results } = data;
+      setReviews([...results]);
+    });
+  }, [movieId]);
 
-  // }, [movieId]);
+  console.log(reviews);
 
-  // console.log(reviews);
-
-  return <div>Reviews</div>;
+  return (
+    <ul>
+      {reviews.length > 0 ? (
+        reviews.map(({ author, content, id }) => (
+          <li key={id}>
+            <h3>{author}</h3>
+            <p>{content}</p>
+          </li>
+        ))
+      ) : (
+        <li>Reviews not found</li>
+      )}
+    </ul>
+  );
 };
 
 export default Reviews;
