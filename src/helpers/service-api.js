@@ -58,4 +58,38 @@ export default class ServiceApi {
       console.log(error);
     }
   }
+
+  async getActorsById(id) {
+    const url = `${BASE_URL}movie/${id}/credits?api_key=${API_KEY}`;
+    try {
+      const response = await fetch(url, options);
+
+      if (!response.ok) {
+        throw new Error('Response error');
+      }
+
+      const data = await response.json();
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async getReviewById(id) {
+    const url = `${BASE_URL}movie/${id}/reviews?api_key=${API_KEY}`;
+    try {
+      const response = await fetch(url, options);
+
+      if (!response.ok) {
+        throw new Error('Response error');
+      }
+
+      const data = await response.json();
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }

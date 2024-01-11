@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 
 const MovieDetailsItem = ({ movie }) => {
-  console.log(movie);
   const defaultImg =
     'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';
   const {
@@ -52,13 +51,14 @@ const MovieDetailsItem = ({ movie }) => {
         <p>Additional information</p>
         <ul>
           <li>
-            <Link>Cast</Link>
+            <Link to="cast">Cast</Link>
           </li>
           <li>
-            <Link>Reviews</Link>
+            <Link to="reviews">Reviews</Link>
           </li>
         </ul>
       </div>
+      <hr />
     </>
   );
 };

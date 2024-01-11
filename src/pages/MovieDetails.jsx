@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import ServiceApi from '../helpers/service-api';
 import MovieDetailsItem from 'components/MovieDetailsItem/MovieDetailsItem';
 
@@ -52,6 +52,7 @@ const MovieDetails = () => {
     <div>
       {status === 'resolved' && <MovieDetailsItem movie={movie} />}
       {status === 'rejected' && <p>This movie not found🐷</p>}
+      <Outlet />
     </div>
   );
 };
