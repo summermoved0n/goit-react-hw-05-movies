@@ -10,86 +10,61 @@ const options = {
 export default class ServiceApi {
   async getFetchPopularMovie() {
     const url = `${BASE_URL}${POPULAR}?api_key=${API_KEY}`;
-    try {
-      const response = await fetch(url, options);
 
-      if (!response.ok) {
-        throw new Error('Response error');
-      }
-
-      const data = await response.json();
-      console.log(data);
-      return data;
-    } catch (error) {
-      console.log(error);
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      return Promise.reject(new Error('Oops, something went wrong! 😥'));
     }
+    const data = await response.json();
+    console.log(data);
+    return data;
   }
 
   async getMovieByQuery(searchQuery) {
     const url = `${BASE_URL}search/movie?api_key=${API_KEY}&query=${searchQuery}`;
-    try {
-      const response = await fetch(url, options);
 
-      if (!response.ok) {
-        throw new Error('Response error');
-      }
-
-      const data = await response.json();
-      console.log(data);
-      return data;
-    } catch (error) {
-      console.log(error);
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      return Promise.reject(new Error('Oops, something went wrong! 😥'));
     }
+    const data = await response.json();
+    console.log(data);
+    return data;
   }
 
   async getMovieById(id) {
     const url = `${BASE_URL}movie/${id}?api_key=${API_KEY}`;
-    try {
-      const response = await fetch(url, options);
 
-      if (!response.ok) {
-        throw new Error('Response error');
-      }
-
-      const data = await response.json();
-      console.log(data);
-      return data;
-    } catch (error) {
-      console.log(error);
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      return Promise.reject(new Error('Oops, something went wrong! 😥'));
     }
+    const data = await response.json();
+    console.log(data);
+    return data;
   }
 
   async getActorsById(id) {
     const url = `${BASE_URL}movie/${id}/credits?api_key=${API_KEY}`;
-    try {
-      const response = await fetch(url, options);
 
-      if (!response.ok) {
-        throw new Error('Response error');
-      }
-
-      const data = await response.json();
-      console.log(data);
-      return data;
-    } catch (error) {
-      console.log(error);
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      return Promise.reject(new Error('Oops, something went wrong! 😥'));
     }
+    const data = await response.json();
+    console.log(data);
+    return data;
   }
 
   async getReviewById(id) {
     const url = `${BASE_URL}movie/${id}/reviews?api_key=${API_KEY}`;
-    try {
-      const response = await fetch(url, options);
 
-      if (!response.ok) {
-        throw new Error('Response error');
-      }
-
-      const data = await response.json();
-      console.log(data);
-      return data;
-    } catch (error) {
-      console.log(error);
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      return Promise.reject(new Error('Oops, something went wrong! 😥'));
     }
+    const data = await response.json();
+    console.log(data);
+    return data;
   }
 }

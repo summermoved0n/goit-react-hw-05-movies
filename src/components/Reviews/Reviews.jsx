@@ -1,35 +1,41 @@
 import { useEffect, useState } from 'react';
 import ServiceApi from '../../helpers/service-api';
 import { useParams } from 'react-router-dom';
+import ReviewItem from 'components/ReviewItem/ReviewItem';
 
 const TheMovieApi = new ServiceApi();
 
 const Reviews = () => {
+  const [status, setStatus] = useState('idle');
   const [reviews, setReviews] = useState([]);
+  const [error, setError] = useState('');
   const { movieId } = useParams();
 
   useEffect(() => {
-    TheMovieApi.getReviewById(movieId).then(data => {
-      const { results } = data;
-      setReviews([...results]);
-    });
+    setStatus('pending');
+    TheMovieApi.getReviewById(movieId)
+      .then(data => {
+        const { results } = data;
+        setReviews([...results]);
+        setStatus('resolved');
+      })
+      .catch(error => {
+        setError(error.message);
+        setStatus('rejected');
+      });
   }, [movieId]);
 
   console.log(reviews);
 
   return (
-    <ul>
-      {reviews.length > 0 ? (
-        reviews.map(({ author, content, id }) => (
-          <li key={id}>
-            <h3>{author}</h3>
-            <p>{content}</p>
-          </li>
-        ))
-      ) : (
-        <li>Reviews not found</li>
+    <>
+      {status === 'pending' && <p>Loading...</p>}
+      {reviews.length > 0 && <ReviewItem reviews={reviews} />}
+      {status === 'resolved' && reviews.length === 0 && (
+        <h3>This movie have not any review🐸</h3>
       )}
-    </ul>
+      {status === 'rejected' && <h3>{error}</h3>}
+    </>
   );
 };
 

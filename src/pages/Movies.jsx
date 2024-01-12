@@ -7,17 +7,25 @@ const TheMovieApi = new ServiceApi();
 
 const Movies = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [status, setStatus] = useState('idle');
+  const [error, setError] = useState('');
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
     if (searchQuery === '') {
       return;
     }
-    TheMovieApi.getMovieByQuery(searchQuery).then(data => {
-      const { results } = data;
-      setMovies([...results]);
-    });
-    setSearchQuery('');
+    setStatus('pending');
+    TheMovieApi.getMovieByQuery(searchQuery)
+      .then(data => {
+        const { results } = data;
+        setMovies([...results]);
+        setStatus('resolved');
+      })
+      .catch(error => {
+        setError(error.message);
+        setStatus('rejected');
+      });
   }, [searchQuery]);
 
   const onSubmit = query => {
@@ -27,7 +35,14 @@ const Movies = () => {
   return (
     <div>
       <Searchbar onSubmit={onSubmit} />
-      <MoviesGallery movies={movies} />
+      {status === 'pending' && <p>Loading...</p>}
+      {movies.length > 0 && <MoviesGallery movies={movies} />}
+      {status === 'resolved' && movies.length === 0 && (
+        <p>
+          Sorry <b>"{searchQuery}"</b> not found
+        </p>
+      )}
+      {status === 'rejected' && <p>{error}</p>}
     </div>
   );
 };

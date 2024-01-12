@@ -4,23 +4,19 @@ import ServiceApi from '../helpers/service-api';
 import MovieDetailsItem from 'components/MovieDetailsItem/MovieDetailsItem';
 
 const TheMovieApi = new ServiceApi();
-const stateMachine = {
-  IDLE: 'idle',
-  PENDING: 'pending',
-  RESPONSE: 'resolved',
-  REJACTED: 'rejected',
-};
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
-  const [status, setStatus] = useState(stateMachine.IDLE);
+  const [status, setStatus] = useState('idle');
+  const [error, setError] = useState('');
   const { movieId } = useParams();
 
   console.log(status);
 
   useEffect(() => {
-    try {
-      TheMovieApi.getMovieById(movieId).then(data => {
+    setStatus('pending');
+    TheMovieApi.getMovieById(movieId)
+      .then(data => {
         const {
           id,
           title,
@@ -39,19 +35,21 @@ const MovieDetails = () => {
           release_date,
           vote_average,
         });
-        setStatus(stateMachine.RESPONSE);
+        setStatus('resolved');
+      })
+      .catch(error => {
+        setError(error.message);
+        setStatus('rejected');
       });
-    } catch (error) {
-      setStatus(stateMachine.REJACTED);
-    }
   }, [movieId]);
 
   console.log(movie);
 
   return (
     <div>
+      {status === 'pending' && <p>Loading...</p>}
       {status === 'resolved' && <MovieDetailsItem movie={movie} />}
-      {status === 'rejected' && <p>This movie not found🐷</p>}
+      {status === 'rejected' && <p>{error}</p>}
       <Outlet />
     </div>
   );

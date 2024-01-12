@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ServiceApi from '../../helpers/service-api';
+import CastItem from 'components/CastItem/CastItem';
 
 const TheMovieApi = new ServiceApi();
 const defaultImg =
@@ -8,39 +9,35 @@ const defaultImg =
 
 const Cast = () => {
   const [actors, setActors] = useState([]);
+  const [status, setStatus] = useState('idle');
+  const [error, setError] = useState('');
   const { movieId } = useParams();
 
   useEffect(() => {
-    TheMovieApi.getActorsById(movieId).then(data => {
-      const { cast } = data;
-      setActors([...cast]);
-    });
+    setStatus('pending');
+    TheMovieApi.getActorsById(movieId)
+      .then(data => {
+        const { cast } = data;
+        setActors([...cast]);
+        setStatus('resolved');
+      })
+      .catch(error => {
+        setError(error.message);
+        setStatus('rejected');
+      });
   }, [movieId]);
 
   console.log(actors);
 
   return (
-    <ul>
-      {actors.length > 0 ? (
-        actors.map(({ character, id, name, profile_path }) => (
-          <li key={id}>
-            <img
-              src={
-                profile_path
-                  ? `https://image.tmdb.org/t/p/w500/${profile_path}`
-                  : defaultImg
-              }
-              alt="actor"
-              width={200}
-            />
-            <h3>{name}</h3>
-            <p>Character: {character}</p>
-          </li>
-        ))
-      ) : (
-        <li>Actors not found</li>
+    <>
+      {status === 'pending' && <p>Loading...</p>}
+      {actors.length > 0 && <CastItem actors={actors} />}
+      {status === 'resolved' && actors.length === 0 && (
+        <h3>List of actors not found🐒</h3>
       )}
-    </ul>
+      {status === 'rejected' && <h3>{error}</h3>}
+    </>
   );
 };
 
