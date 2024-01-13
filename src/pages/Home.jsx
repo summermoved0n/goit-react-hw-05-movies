@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import ServiceApi from '../helpers/service-api';
 import { Link } from 'react-router-dom';
+import css from './styles.module.css';
+import Loader from 'components/Loader/Loader';
 
 const TheMovieApi = new ServiceApi();
 
@@ -24,7 +26,11 @@ const Home = () => {
   return (
     <div>
       <b>Trending today</b>
-      {status === 'pending' && <p>Loading...</p>}
+      {status === 'pending' && (
+        <div className={css.Loader}>
+          <Loader />
+        </div>
+      )}
       {movies.length > 0 && (
         <ul>
           {movies.map(({ id, title, name }) => (

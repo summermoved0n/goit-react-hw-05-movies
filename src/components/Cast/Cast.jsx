@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ServiceApi from '../../helpers/service-api';
 import CastItem from 'components/CastItem/CastItem';
+import css from './Cast.module.css';
+import Loader from 'components/Loader/Loader';
 
 const TheMovieApi = new ServiceApi();
 
@@ -29,7 +31,11 @@ const Cast = () => {
 
   return (
     <>
-      {status === 'pending' && <p>Loading...</p>}
+      {status === 'pending' && (
+        <div className={css.loader}>
+          <Loader />
+        </div>
+      )}
       {actors.length > 0 && <CastItem actors={actors} />}
       {status === 'resolved' && actors.length === 0 && (
         <h3>List of actors not found🐒</h3>

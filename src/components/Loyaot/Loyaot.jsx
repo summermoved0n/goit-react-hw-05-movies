@@ -5,14 +5,14 @@ export const Loyaot = () => {
   return (
     <div>
       <header>
-        <ul>
-          <li>
+        <nav>
+          <span>
             <NavLink to="/">Home</NavLink>
-          </li>
-          <li>
+          </span>
+          <span>
             <NavLink to="/movies">Movies</NavLink>
-          </li>
-        </ul>
+          </span>
+        </nav>
       </header>
       <hr />
       <main>
