@@ -1,0 +1,19 @@
+.review_list {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.review_item {
+  border-bottom: 1px solid #fff;
+  padding-bottom: 15px;
+}
+
+.review_title {
+  font-style: italic;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  letter-spacing: 0.04em;
+}

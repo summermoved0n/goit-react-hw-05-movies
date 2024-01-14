@@ -1,0 +1,43 @@
+.form {
+  margin-bottom: 20px;
+}
+
+.input {
+  width: 400px;
+  height: 35px;
+  padding: 0 10px;
+  font-size: 20px;
+  margin-right: 20px;
+  border-radius: 10px;
+  color: aqua;
+  background-color: transparent;
+  border: 2px solid #fff;
+}
+
+.input:focus {
+  background-color: #ffffff83;
+  color: #000;
+}
+
+.button {
+  cursor: pointer;
+  padding: 0;
+  height: 35px;
+  width: 100px;
+  background-color: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+.button:is(:hover, :focus) {
+  border-color: aqua;
+  color: aqua;
+}
+
+.button:active {
+  background-color: aqua;
+  color: #000;
+  font-weight: 500;
+}

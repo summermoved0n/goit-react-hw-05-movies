@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import css from './Searchbar.module.css';
 
 const Searchbar = ({ onSubmit }) => {
   const [query, setQuery] = useState('');
@@ -15,8 +16,9 @@ const Searchbar = ({ onSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={css.form} onSubmit={handleSubmit}>
       <input
+        className={css.input}
         onChange={handleChange}
         type="text"
         value={query}
@@ -24,7 +26,9 @@ const Searchbar = ({ onSubmit }) => {
         autoFocus
         placeholder="Search movies"
       />
-      <button type="submit">Search</button>
+      <button className={css.button} type="submit">
+        Search
+      </button>
     </form>
   );
 };

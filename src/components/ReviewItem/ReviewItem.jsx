@@ -1,9 +1,11 @@
+import css from './ReviewItem.module.css';
+
 const ReviewItem = ({ reviews }) => {
   return (
-    <ul>
+    <ul className={css.review_list}>
       {reviews.map(({ author, content, id }) => (
-        <li key={id}>
-          <h3>{author}</h3>
+        <li className={css.review_item} key={id}>
+          <h3 className={css.review_title}>{author}</h3>
           <p>{content}</p>
         </li>
       ))}

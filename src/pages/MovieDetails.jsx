@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Outlet, useParams } from 'react-router-dom';
 import ServiceApi from '../helpers/service-api';
 import MovieDetailsItem from 'components/MovieDetailsItem/MovieDetailsItem';
@@ -13,10 +13,7 @@ const MovieDetails = () => {
   const [error, setError] = useState('');
   const { movieId } = useParams();
 
-  console.log(status);
-
   useEffect(() => {
-    setStatus('pending');
     TheMovieApi.getMovieById(movieId)
       .then(data => {
         const {
@@ -49,14 +46,17 @@ const MovieDetails = () => {
 
   return (
     <div>
-      {status === 'pending' && (
-        <div className={css.Loader}>
-          <Loader />
-        </div>
-      )}
       {status === 'resolved' && <MovieDetailsItem movie={movie} />}
       {status === 'rejected' && <p>{error}</p>}
-      <Outlet />
+      <Suspense
+        fallback={
+          <div className={css.Loader}>
+            <Loader />
+          </div>
+        }
+      >
+        <Outlet />
+      </Suspense>
     </div>
   );
 };

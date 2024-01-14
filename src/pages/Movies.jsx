@@ -4,21 +4,24 @@ import ServiceApi from '../helpers/service-api';
 import MoviesGallery from 'components/MoviesGallery/MoviesGallery';
 import css from './styles.module.css';
 import Loader from 'components/Loader/Loader';
+import { useSearchParams } from 'react-router-dom';
 
 const TheMovieApi = new ServiceApi();
 
 const Movies = () => {
-  const [searchQuery, setSearchQuery] = useState('');
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState('');
   const [movies, setMovies] = useState([]);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const movieId = searchParams.get('query');
+
   useEffect(() => {
-    if (searchQuery === '') {
+    if (movieId === null) {
       return;
     }
     setStatus('pending');
-    TheMovieApi.getMovieByQuery(searchQuery)
+    TheMovieApi.getMovieByQuery(movieId)
       .then(data => {
         const { results } = data;
         setMovies([...results]);
@@ -28,14 +31,14 @@ const Movies = () => {
         setError(error.message);
         setStatus('rejected');
       });
-  }, [searchQuery]);
+  }, [movieId]);
 
   const onSubmit = query => {
-    setSearchQuery(query);
+    query ? setSearchParams({ query }) : setSearchParams({});
   };
 
   return (
-    <div>
+    <>
       <Searchbar onSubmit={onSubmit} />
       {status === 'pending' && (
         <div className={css.Loader}>
@@ -45,11 +48,11 @@ const Movies = () => {
       {movies.length > 0 && <MoviesGallery movies={movies} />}
       {status === 'resolved' && movies.length === 0 && (
         <p>
-          Sorry <b>"{searchQuery}"</b> not found
+          Sorry <b>"{movieId}"</b> not found
         </p>
       )}
       {status === 'rejected' && <p>{error}</p>}
-    </div>
+    </>
   );
 };
 

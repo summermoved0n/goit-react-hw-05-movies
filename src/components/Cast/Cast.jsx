@@ -14,7 +14,6 @@ const Cast = () => {
   const { movieId } = useParams();
 
   useEffect(() => {
-    setStatus('pending');
     TheMovieApi.getActorsById(movieId)
       .then(data => {
         const { cast } = data;
@@ -31,11 +30,6 @@ const Cast = () => {
 
   return (
     <>
-      {status === 'pending' && (
-        <div className={css.loader}>
-          <Loader />
-        </div>
-      )}
       {actors.length > 0 && <CastItem actors={actors} />}
       {status === 'resolved' && actors.length === 0 && (
         <h3>List of actors not found🐒</h3>

@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react';
 import ServiceApi from '../helpers/service-api';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import css from './styles.module.css';
-import Loader from 'components/Loader/Loader';
+import styled from 'styled-components';
+
+const ListLink = styled(Link)`
+  text-decoration: none;
+  color: #fff;
+`;
 
 const TheMovieApi = new ServiceApi();
 
@@ -10,8 +15,10 @@ const Home = () => {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState('');
   const [status, setStatus] = useState('idle');
+
+  const location = useLocation();
+
   useEffect(() => {
-    setStatus('pending');
     TheMovieApi.getFetchPopularMovie()
       .then(data => {
         const { results } = data;
@@ -24,18 +31,15 @@ const Home = () => {
       });
   }, []);
   return (
-    <div>
-      <b>Trending today</b>
-      {status === 'pending' && (
-        <div className={css.Loader}>
-          <Loader />
-        </div>
-      )}
+    <>
+      <h3 className={css.home_title}>Trending today:</h3>
       {movies.length > 0 && (
-        <ul>
+        <ul className={css.home_list}>
           {movies.map(({ id, title, name }) => (
-            <li key={id}>
-              <Link to={`movies/${id}`}>{title ?? name}</Link>
+            <li className={css.home_item} key={id}>
+              <ListLink to={`movies/${id}`} state={{ from: location }}>
+                {title ?? name}
+              </ListLink>
             </li>
           ))}
         </ul>
@@ -44,7 +48,7 @@ const Home = () => {
         <h4>List of trends not found🐷</h4>
       )}
       {status === 'rejected' && <p>{error}</p>}
-    </div>
+    </>
   );
 };
 

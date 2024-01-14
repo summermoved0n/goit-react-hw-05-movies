@@ -1,0 +1,9 @@
+.gallery_list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.gallery_item a:hover {
+  color: orange;
+}

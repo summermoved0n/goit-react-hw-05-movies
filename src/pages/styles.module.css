@@ -3,3 +3,38 @@
   justify-content: center;
   align-items: center;
 }
+
+/** Loyaou **/
+
+.header {
+  padding: 30px;
+  border-bottom: 2px solid #fff;
+}
+
+.navigation {
+  display: flex;
+  gap: 20px;
+}
+
+.main {
+  padding: 20px 15px;
+}
+
+/** Home */
+
+.home_title {
+  font-size: 20px;
+  margin-bottom: 15px;
+  letter-spacing: 0.06em;
+  color: aqua;
+}
+
+.home_list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.home_item a:is(:hover, :focus) {
+  color: rgb(255, 185, 54);
+}
