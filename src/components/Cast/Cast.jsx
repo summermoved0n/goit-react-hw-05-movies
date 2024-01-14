@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ServiceApi from '../../helpers/service-api';
 import CastItem from 'components/CastItem/CastItem';
-import css from './Cast.module.css';
-import Loader from 'components/Loader/Loader';
 
 const TheMovieApi = new ServiceApi();
 
