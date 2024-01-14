@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/415.c75067bf.chunk.css","mappings":"AAAA,mCACE,YAAa,CACb,qBAAsB,CACtB,OACF,CAEA,2CACE,YACF","sources":["components/MoviesGallery/MoviesGallery.module.css"],"sourcesContent":[".gallery_list {\n  display: flex;\n  flex-direction: column;\n  gap: 2px;\n}\n\n.gallery_item a:hover {\n  color: orange;\n}\n"],"names":[],"sourceRoot":""}
