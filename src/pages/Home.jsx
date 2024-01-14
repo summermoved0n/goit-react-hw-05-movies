@@ -1,13 +1,8 @@
 import { useEffect, useState } from 'react';
 import ServiceApi from '../helpers/service-api';
-import { Link, useLocation } from 'react-router-dom';
 import css from './styles.module.css';
-import styled from 'styled-components';
-
-const ListLink = styled(Link)`
-  text-decoration: none;
-  color: #fff;
-`;
+import MoviesGallery from 'components/MoviesGallery/MoviesGallery';
+import { useLocation } from 'react-router-dom';
 
 const TheMovieApi = new ServiceApi();
 
@@ -34,15 +29,7 @@ const Home = () => {
     <>
       <h3 className={css.home_title}>Trending today:</h3>
       {movies.length > 0 && (
-        <ul className={css.home_list}>
-          {movies.map(({ id, title, name }) => (
-            <li className={css.home_item} key={id}>
-              <ListLink to={`movies/${id}`} state={{ from: location }}>
-                {title ?? name}
-              </ListLink>
-            </li>
-          ))}
-        </ul>
+        <MoviesGallery movies={movies} location={location} />
       )}
       {status === 'resolved' && movies.length === 0 && (
         <h4>List of trends not found🐷</h4>

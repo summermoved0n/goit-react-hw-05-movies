@@ -12,10 +12,10 @@ const MoviesGallery = ({ movies }) => {
 
   return (
     <ul className={css.gallery_list}>
-      {movies.map(({ id, title }) => (
+      {movies.map(({ id, title, name }) => (
         <li className={css.gallery_item} key={id}>
-          <ListLink to={`${id}`} state={{ from: location }}>
-            {title}
+          <ListLink to={`/movies/${id}`} state={{ from: location }}>
+            {title ?? name}
           </ListLink>
         </li>
       ))}
